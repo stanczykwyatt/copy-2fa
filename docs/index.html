@@ -14,9 +14,11 @@
 
   <meta property="og:type" content="website">
   <meta property="og:title" content="Copy 2FA">
+  <meta property="og:site_name" content="Copy 2FA">
   <meta property="og:description" content="Press Control-Shift-C anywhere on your Mac. Your newest 2FA code is copied. Free, open source, no internet access.">
   <meta property="og:url" content="https://stanczykwyatt.github.io/copy-2fa/">
   <meta property="og:image" content="https://stanczykwyatt.github.io/copy-2fa/social.png">
+  <meta property="og:image:alt" content="Copy 2FA">
   <meta property="og:image:width" content="1280">
   <meta property="og:image:height" content="640">
   <meta name="twitter:card" content="summary_large_image">
@@ -61,53 +63,53 @@
   }
   </script>
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "How do I copy a 2FA code from email on a Mac?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Add your email account to Apple Mail, open Copy 2FA, and press Control-Shift-C when the code arrives. The newest code is copied, ready to paste with Command-V."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How do I copy an older 2FA code, not the newest one?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Click the Copy 2FA icon in the menu bar and choose Recent Codes. It lists the last five codes from the past 10 minutes, newest first, with who sent each one and whether it came from Mail or Messages. Pick one with the arrow keys and Return, or click it. You can also give Recent Codes its own shortcut in Settings."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Does it work with Gmail, Outlook and iCloud?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes. Copy 2FA reads every account you've added to Apple Mail, whatever the provider, and texted codes from Messages if you turn that on."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Can it read codes from Authy, Duo or Google Authenticator?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Those apps don't let other apps read their codes. You can move Google Authenticator accounts into Copy 2FA's own authenticator with its transfer QR code. Authy doesn't allow exports, so set those accounts up again with a new QR code. Duo passcodes sent by text are read from Messages."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Is Copy 2FA safe?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Copy 2FA runs in the macOS App Sandbox with no network access, so it can't send your codes anywhere. It only reads Mail and Messages when you ask, never saves what it reads, and keeps authenticator secrets in your keychain behind Touch ID. The code is open source."
-        }
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do I copy a 2FA code from email on a Mac?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Add your email account to Apple Mail, open Copy 2FA, and press ⌃⇧C when the code arrives. The newest code is copied, ready to paste with ⌘V."
       }
-    ]
-  }
-  </script>
+    },
+    {
+      "@type": "Question",
+      "name": "How do I copy an older 2FA code, not the newest one?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Click the Copy 2FA icon in the menu bar and choose Recent Codes. It lists the last five codes from the past 10 minutes, newest first, with who sent each one and whether it came from Mail or Messages. Pick one with the arrow keys and Return, or click it. You can also give Recent Codes its own shortcut in Settings."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does it work with Gmail, Outlook and iCloud?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Copy 2FA reads every account you've added to Apple Mail, whatever the provider, and texted codes from Messages if you turn that on."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can it read codes from Authy, Duo or Google Authenticator?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Those apps don't let other apps read their codes. You can move Google Authenticator accounts into Copy 2FA's own authenticator with its transfer QR code. Authy doesn't allow exports, so set those accounts up again with a new QR code. Duo passcodes sent by text are read from Messages."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is Copy 2FA safe?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Copy 2FA runs in the macOS App Sandbox with no network access, so it can't send your codes anywhere. It only reads Mail and Messages when you ask, never saves what it reads, and keeps authenticator secrets in your keychain behind Touch ID. The code is open source."
+      }
+    }
+  ]
+}
+</script>
 
   <style>
     :root {
