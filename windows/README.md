@@ -17,7 +17,7 @@ For accounts that use an authenticator app, press **Ctrl+Shift+A** and confirm i
 
 ## What works
 
-- **Outlook (classic)**, the desktop Outlook that comes with Microsoft 365 and Office. Copy 2FA reads the inbox and junk folder of every account in it.
+- **Outlook (classic)**, the desktop Outlook that comes with Microsoft 365 and Office. Copy 2FA reads the inbox, the folders inside it and the junk folder of every account in it, so codes that a rule files into a folder inside the inbox are found too.
 - **Thunderbird.** Copy 2FA reads the inbox and junk folders straight from your Thunderbird profile, for IMAP, POP and local accounts.
 - **A built-in authenticator** for time-based (TOTP) and counter-based (HOTP) codes, with SHA1, SHA256 or SHA512, 6 to 8 digits and any period. A counter-based account shows *Next code* instead of a countdown, and its counter is saved before each code is copied, so no code is ever given out twice. You can import accounts from:
   - a text file of `otpauth://` links, or a single link pasted into Settings
