@@ -3,6 +3,7 @@
 ## Unreleased
 
 - **Outlook folders inside the inbox (Windows):** Copy 2FA now also reads every folder inside each Outlook inbox, so codes that a rule files away, such as into Inbox > Gmail, are found.
+- **Notice text (Windows):** titles and details now show in full instead of being cut to their first letter and "…".
 
 ## 0.4.0 (2026-10-28)
 

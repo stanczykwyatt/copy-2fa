@@ -13,8 +13,10 @@ namespace Copy2FA;
 /// </remarks>
 internal sealed class NoticeWindow : Form
 {
-    const TextFormatFlags TextFlags =
-        TextFormatFlags.NoPadding | TextFormatFlags.SingleLine | TextFormatFlags.NoPrefix | TextFormatFlags.EndEllipsis;
+    // Measuring with EndEllipsis and no width limit returns the width of the first letter and the ellipsis only,
+    // so text is measured without it and only shortened when drawn.
+    const TextFormatFlags MeasureFlags = TextFormatFlags.NoPadding | TextFormatFlags.SingleLine | TextFormatFlags.NoPrefix;
+    const TextFormatFlags TextFlags = MeasureFlags | TextFormatFlags.EndEllipsis;
 
     static readonly bool IsWindows11 = OperatingSystem.IsWindowsVersionAtLeast(10, 0, 22000);
 
@@ -224,8 +226,8 @@ internal sealed class NoticeWindow : Form
             SymbolFont = new Font(Theme.SymbolFont, Scale(20, dpi), FontStyle.Regular, GraphicsUnit.Pixel);
 
             var maxText = Scale(520, dpi);
-            var title = TextRenderer.MeasureText(notice.Title, TitleFont, Size.Empty, TextFlags);
-            var detail = notice.Detail is null ? Size.Empty : TextRenderer.MeasureText(notice.Detail, DetailFont, Size.Empty, TextFlags);
+            var title = TextRenderer.MeasureText(notice.Title, TitleFont, Size.Empty, MeasureFlags);
+            var detail = notice.Detail is null ? Size.Empty : TextRenderer.MeasureText(notice.Detail, DetailFont, Size.Empty, MeasureFlags);
 
             int padX = Scale(18, dpi), padY = Scale(12, dpi), symbolSize = Scale(26, dpi), gap = Scale(12, dpi);
             var spacing = notice.Detail is null ? 0 : Scale(2, dpi);
