@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- **Outlook folders inside the inbox (Windows):** Copy 2FA now also reads every folder inside each Outlook inbox, so codes that a rule files away, such as into Inbox > Gmail, are found.
+- **Notice text (Windows):** titles and details now show in full instead of being cut to their first letter and "…".
+
 ## 0.4.0 (2026-10-28)
 
 - **Recent codes:** choose **Recent Codes** in the menu bar to see the last five codes from Mail and Messages, newest first, each with its sender, where it came from and how long ago it arrived. Pick one with the arrow keys and Return, or click it. A code sent by both email and text is listed once.

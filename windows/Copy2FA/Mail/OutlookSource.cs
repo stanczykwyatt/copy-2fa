@@ -67,7 +67,7 @@ internal sealed class OutlookSource : IMailSource
         }
     }
 
-    /// <summary>The inbox and junk folder of every account, falling back to the default store's.</summary>
+    /// <summary>The inbox, the folders inside it and the junk folder of every account, falling back to the default store's.</summary>
     static List<object> Folders(object session, ComObjects com)
     {
         var folders = new List<object>();
@@ -77,13 +77,7 @@ internal sealed class OutlookSource : IMailSource
             var count = Convert.ToInt32(Get(stores, "Count"), System.Globalization.CultureInfo.InvariantCulture);
             for (var index = 1; index <= count; index++)
             {
-                var store = com.Track(Call(stores, "Item", index));
-                if (store is null) continue;
-                foreach (var kind in new[] { FolderInbox, FolderJunk })
-                {
-                    // Stores like public folders or shared calendars have no inbox; skip them.
-                    if (TryCall(store, "GetDefaultFolder", kind) is { } folder) folders.Add(com.Track(folder)!);
-                }
+                if (com.Track(Call(stores, "Item", index)) is { } store) AddMailFolders(store, folders, com);
             }
         }
         catch (Exception error) when (IsComFailure(error))
@@ -91,14 +85,41 @@ internal sealed class OutlookSource : IMailSource
             // Older Outlook without Stores; the default folders below still work.
         }
 
-        if (folders.Count == 0)
+        if (folders.Count == 0) AddMailFolders(session, folders, com);
+        return folders;
+    }
+
+    /// <summary>Adds the inbox, every folder inside it and the junk folder of <paramref name="owner"/>, a store or the session.</summary>
+    static void AddMailFolders(object owner, List<object> folders, ComObjects com)
+    {
+        foreach (var kind in new[] { FolderInbox, FolderJunk })
         {
-            foreach (var kind in new[] { FolderInbox, FolderJunk })
+            // Stores like public folders or shared calendars have no inbox; skip them.
+            if (TryCall(owner, "GetDefaultFolder", kind) is not { } folder) continue;
+            folders.Add(com.Track(folder)!);
+            // Rules often file sign-in emails into folders inside the inbox.
+            if (kind == FolderInbox) AddSubfolders(folder, folders, com);
+        }
+    }
+
+    /// <summary>Adds every folder inside <paramref name="parent"/>, at any depth.</summary>
+    static void AddSubfolders(object parent, List<object> folders, ComObjects com)
+    {
+        try
+        {
+            var children = com.Track(Get(parent, "Folders"))!;
+            var count = Convert.ToInt32(Get(children, "Count"), System.Globalization.CultureInfo.InvariantCulture);
+            for (var index = 1; index <= count; index++)
             {
-                if (TryCall(session, "GetDefaultFolder", kind) is { } folder) folders.Add(com.Track(folder)!);
+                if (com.Track(TryCall(children, "Item", index)) is not { } child) continue;
+                folders.Add(child);
+                AddSubfolders(child, folders, com);
             }
         }
-        return folders;
+        catch (Exception error) when (IsComFailure(error))
+        {
+            // A folder Outlook can't list right now; the folders already found are still searched.
+        }
     }
 
     static void ReadFolder(object folder, DateTimeOffset cutoff, List<MailMessage> messages, ComObjects com, CancellationToken cancellation)
